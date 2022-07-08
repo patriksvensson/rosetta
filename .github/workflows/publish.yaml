@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Publish
 
 on:
@@ -18,41 +19,6 @@ env:
 jobs:
 
   ###################################################
-  # BUILD
-  ###################################################
-
-  build:
-    name: Build
-    if: "!contains(github.event.head_commit.message, 'skip-ci')"
-    strategy:
-      matrix:
-        kind: ['linux', 'windows', 'macOS']
-        include:
-          - kind: linux
-            os: ubuntu-latest
-          - kind: windows
-            os: windows-latest
-          - kind: macOS
-            os: macos-latest
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 6.0.100
-
-      - name: Build
-        shell: bash
-        run: |
-          dotnet tool restore
-          dotnet cake
-
-  ###################################################
   # PUBLISH
   ###################################################
 
@@ -69,13 +35,10 @@ jobs:
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 6.0.100
 
       - name: Publish
         shell: bash
         run: |
           dotnet tool restore
           dotnet cake --target="Publish" \
-            --nuget-key="${{secrets.NUGET_API_KEY}}" \
-            --github-key="${{secrets.GITHUB_TOKEN}}"
+            --nuget-key="${{secrets.NUGET_API_KEY}}"
