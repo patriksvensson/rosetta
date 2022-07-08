@@ -9,4 +9,9 @@
     <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NuGet.Versioning" Version="6.2.1" />
+  </ItemGroup>
+
 </Project>

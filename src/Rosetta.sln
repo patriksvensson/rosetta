@@ -7,6 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosetta", "Rosetta\Rosetta.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosetta.Tests", "Rosetta.Tests\Rosetta.Tests.csproj", "{A90C8C46-58DF-41B8-B273-B24396E8424C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{1D724FA4-8E19-4C40-B9D4-E24E38EFF818}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

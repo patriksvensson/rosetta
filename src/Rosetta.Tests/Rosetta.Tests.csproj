@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\DotnetLibrary.json" />
+    <None Remove="Data\DotnetTest.json" />
+    <None Remove="Data\DotnetWebApp.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\DotnetTest.json" />
+    <EmbeddedResource Include="Data\DotnetLibrary.json" />
+    <EmbeddedResource Include="Data\DotnetWebApp.json" />
   </ItemGroup>
 
   <ItemGroup>
