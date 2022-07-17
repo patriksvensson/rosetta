@@ -1,3 +1,5 @@
+using Spectre.IO;
+
 namespace Rosetta;
 
 [DebuggerDisplay("{Name,nq} {Version.OriginalVersion,nq}")]
@@ -7,13 +9,13 @@ public sealed class Library
     public NuGetVersion Version { get; }
     public LibraryType Type { get; }
     public string? Sha512 { get; }
-    public string? Path { get; }
+    public DirectoryPath? Path { get; }
     public bool? HasTools { get; }
     public ISet<string> Files { get; }
 
     public Library(
         string name, NuGetVersion version, LibraryType type,
-        string? sha512, string? path, bool? hasTools,
+        string? sha512, DirectoryPath? path, bool? hasTools,
         IEnumerable<string> files)
     {
         if (files is null)

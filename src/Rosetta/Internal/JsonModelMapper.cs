@@ -1,3 +1,5 @@
+using Spectre.IO;
+
 namespace Rosetta.Internal;
 
 internal static class JsonModelMapper
@@ -89,7 +91,9 @@ internal static class JsonModelMapper
 
             result.Add(new Library(
                 name, new NuGetVersion(version ?? "0.0.0.0"), ParseLibraryType(library.Type),
-                library.Sha512, library.Path, library.HasTools,
+                library.Sha512,
+                PathHelper.GetDirectoryPath(library.Path),
+                library.HasTools,
                 files));
         }
 
@@ -112,10 +116,10 @@ internal static class JsonModelMapper
             version: new NuGetVersion(project.Version ?? "0.0.0.0"),
             restore: new ProjectRestore(
                 name: project.Restore.ProjectName!,
-                path: project.Restore.ProjectPath!,
+                projectPath: new FilePath(project.Restore.ProjectPath!),
                 uniqueName: project.Restore.ProjectUniqueName!,
-                packagesPath: project.Restore.PackagesPath!,
-                outputPath: project.Restore.OutputPath!,
+                packagesPath: new DirectoryPath(project.Restore.PackagesPath!),
+                outputPath: new DirectoryPath(project.Restore.OutputPath!),
                 projectStyle: ParseProjectStyle(project.Restore.ProjectStyle),
                 projectFrameworks: ParseProjectFrameworks(project.Restore.Frameworks)),
             frameworks: ParseFrameworks(project.Frameworks));
@@ -189,7 +193,7 @@ internal static class JsonModelMapper
             {
                 result.Add(new ProjectReference(
                     projectReference.Key,
-                    projectPath: projectReference.Value.ProjectPath ?? projectReference.Key,
+                    projectPath: new FilePath(projectReference.Value.ProjectPath ?? projectReference.Key),
                     includeAssets: IncludeFlagsParser.GetFlags(projectReference.Value.IncludeAssets, IncludeFlags.All),
                     excludeAssets: IncludeFlagsParser.GetFlags(projectReference.Value.ExcludeAssets, IncludeFlags.None),
                     privateAssets: IncludeFlagsParser.GetFlags(projectReference.Value.ExcludeAssets, IncludeFlags.Build | IncludeFlags.ContentFiles | IncludeFlags.Analyzers)));
