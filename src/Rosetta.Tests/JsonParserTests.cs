@@ -14,7 +14,7 @@ public sealed class JsonParserTests
         var input = EmbeddedResourceReader.Read($"Rosetta.Tests/Data/{file}");
 
         // When
-        var model = AssetFile.Parse(input);
+        var model = AssetFile.FromJson(input);
 
         // Then
         model.ShouldNotBeNull();

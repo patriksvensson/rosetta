@@ -1,3 +1,4 @@
+using System.IO;
 using Rosetta.Internal;
 
 namespace Rosetta;
@@ -27,14 +28,44 @@ public sealed class AssetFile
         Project = project;
     }
 
-    public static AssetFile Parse(string json)
+    public static AssetFile FromStream(Stream stream)
     {
-        var obj = JsonConvert.DeserializeObject<JsonModel.Assets>(json);
-        if (obj == null)
+        return Parse(() =>
         {
-            throw new InvalidOperationException("Could not parse project.assets.json.");
-        }
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        });
+    }
 
-        return JsonModelMapper.Map(obj);
+    public static AssetFile FromFile(string path)
+    {
+        return Parse(() => File.ReadAllText(path));
+    }
+
+    public static AssetFile FromJson(string json)
+    {
+        return Parse(() => json);
+    }
+
+    private static AssetFile Parse(Func<string> func)
+    {
+        try
+        {
+            var json = func();
+
+            var obj = JsonConvert.DeserializeObject<JsonModel.Assets>(json);
+            if (obj == null)
+            {
+                throw new InvalidOperationException("Could not parse project.assets.json.");
+            }
+
+            return JsonModelMapper.Map(obj);
+        }
+        catch (Exception ex)
+        {
+            throw new RosettaException("Could not parse project.assets.json. See inner exception for more information", ex);
+        }
     }
 }
