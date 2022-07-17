@@ -12,7 +12,7 @@ var assets = AssetFile.FromJson(json);
 var assets = AssetFile.FromStream(stream);
 
 // Load from file
-var assets = AssetFile.FromJson("C:/foo/project.assets.json");
+var assets = AssetFile.FromFile("C:/foo/project.assets.json");
 ```
 
 ## Building
