@@ -1,5 +1,3 @@
-using Spectre.IO;
-
 namespace Rosetta;
 
 [DebuggerDisplay("{Name,nq} {Version.OriginalVersion,nq}")]
@@ -11,7 +9,7 @@ public sealed class Library
     public string? Sha512 { get; }
     public DirectoryPath? Path { get; }
     public bool? HasTools { get; }
-    public ISet<string> Files { get; }
+    public IReadOnlySet<string> Files { get; }
 
     public Library(
         string name, NuGetVersion version, LibraryType type,
@@ -29,6 +27,6 @@ public sealed class Library
         Sha512 = sha512;
         Path = path;
         HasTools = hasTools;
-        Files = new HashSet<string>(files);
+        Files = files.ToReadOnlySet();
     }
 }

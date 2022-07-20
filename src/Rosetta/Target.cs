@@ -12,7 +12,7 @@ public sealed class Target
     {
         TargetFramework = targetFramework ?? throw new ArgumentNullException(nameof(targetFramework));
         RuntimeIdentifier = runtimeIdentifier;
-        Libraries = new HashSet<TargetLibrary>(libraries);
+        Libraries = libraries.ToReadOnlySet();
     }
 
     private string DebugString()

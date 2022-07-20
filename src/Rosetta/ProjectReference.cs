@@ -1,5 +1,3 @@
-using Spectre.IO;
-
 namespace Rosetta;
 
 [DebuggerDisplay("{UniqueName,nq}")]

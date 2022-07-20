@@ -1,5 +1,3 @@
-using Spectre.IO;
-
 namespace Rosetta.Internal;
 
 internal static class JsonModelMapper
@@ -119,6 +117,7 @@ internal static class JsonModelMapper
                 projectPath: new FilePath(project.Restore.ProjectPath!),
                 uniqueName: project.Restore.ProjectUniqueName!,
                 packagesPath: new DirectoryPath(project.Restore.PackagesPath!),
+                fallbackFolders: project.Restore.FallbackFolders.ToDirectoryPaths(),
                 outputPath: new DirectoryPath(project.Restore.OutputPath!),
                 projectStyle: ParseProjectStyle(project.Restore.ProjectStyle),
                 projectFrameworks: ParseProjectFrameworks(project.Restore.Frameworks)),
@@ -134,12 +133,12 @@ internal static class JsonModelMapper
             foreach (var (frameworkName, framework) in frameworks)
             {
                 result.Add(new Framework(
-                        name: frameworkName,
-                        targetAlias: framework.TargetAlias!,
-                        dependencies: ParseFrameworkDependencies(framework.Dependencies),
-                        imports: framework.Imports ?? Enumerable.Empty<string>(),
-                        assetTargetFallback: framework.AssetTargetFallback,
-                        runtimeIdentifierGraphPath: framework.RuntimeIdentifierGraphPath ?? string.Empty));
+                    name: frameworkName,
+                    targetAlias: framework.TargetAlias!,
+                    dependencies: ParseFrameworkDependencies(framework.Dependencies),
+                    imports: framework.Imports ?? Enumerable.Empty<string>(),
+                    assetTargetFallback: framework.AssetTargetFallback,
+                    runtimeIdentifierGraphPath: framework.RuntimeIdentifierGraphPath ?? string.Empty));
             }
         }
 

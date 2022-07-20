@@ -13,6 +13,6 @@ public sealed class TargetLibrary
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Version = version ?? throw new ArgumentNullException(nameof(version));
         Type = type;
-        Dependencies = new HashSet<TargetLibraryDependency>(dependencies);
+        Dependencies = dependencies.ToReadOnlySet();
     }
 }

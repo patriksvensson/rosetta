@@ -23,8 +23,8 @@ public sealed class AssetFile
             throw new ArgumentNullException(nameof(targets));
         }
 
-        Targets = new HashSet<Target>(targets);
-        Libraries = new HashSet<Library>(libraries);
+        Targets = targets.ToReadOnlySet();
+        Libraries = libraries.ToReadOnlySet();
         Project = project;
     }
 
