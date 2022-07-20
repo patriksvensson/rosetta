@@ -1,5 +1,4 @@
 using System.IO;
-using Rosetta.Internal;
 
 namespace Rosetta;
 
