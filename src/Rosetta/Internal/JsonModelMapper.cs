@@ -53,8 +53,7 @@ internal static class JsonModelMapper
             {
                 dependencies.Add(new TargetLibraryDependency(
                     dependencyName,
-                    new NuGetVersion(
-                        dependencyVersion?.Trim('[', ']') ?? "0.0.0.0")));
+                    VersionRange.Parse(dependencyVersion ?? "0.0.0.0")));
             }
         }
 

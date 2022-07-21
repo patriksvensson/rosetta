@@ -4,9 +4,9 @@ namespace Rosetta;
 public sealed class TargetLibraryDependency
 {
     public string Id { get; }
-    public NuGetVersion Version { get; }
+    public VersionRange Version { get; }
 
-    public TargetLibraryDependency(string id, NuGetVersion version)
+    public TargetLibraryDependency(string id, VersionRange version)
     {
         Id = id ?? throw new ArgumentNullException(nameof(id));
         Version = version ?? throw new ArgumentNullException(nameof(version));
