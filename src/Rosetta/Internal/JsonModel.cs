@@ -74,6 +74,9 @@ internal sealed class JsonModel
             [JsonProperty("assetTargetFallback")]
             public bool AssetTargetFallback { get; set; }
 
+            [JsonProperty("downloadDependencies")]
+            public List<DownloadDependency>? DownloadDependencies { get; set; }
+
             [JsonProperty("runtimeIdentifierGraphPath")]
             public string? RuntimeIdentifierGraphPath { get; set; }
 
@@ -87,6 +90,15 @@ internal sealed class JsonModel
 
                 [JsonProperty("target")]
                 public string? Target { get; set; }
+
+                [JsonProperty("version")]
+                public string? Version { get; set; }
+            }
+
+            public sealed class DownloadDependency
+            {
+                [JsonProperty("name")]
+                public string? Name { get; set; }
 
                 [JsonProperty("version")]
                 public string? Version { get; set; }
