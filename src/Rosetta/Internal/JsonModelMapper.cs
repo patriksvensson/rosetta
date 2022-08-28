@@ -137,6 +137,7 @@ internal static class JsonModelMapper
                     dependencies: ParseFrameworkDependencies(framework.Dependencies),
                     imports: framework.Imports ?? Enumerable.Empty<string>(),
                     assetTargetFallback: framework.AssetTargetFallback,
+                    downloadDependencies: ParseDownloadDependencies(framework.DownloadDependencies),
                     runtimeIdentifierGraphPath: framework.RuntimeIdentifierGraphPath ?? string.Empty));
             }
         }
@@ -155,6 +156,27 @@ internal static class JsonModelMapper
                     dependencyName,
                     Enum.Parse<FrameworkDependencyTarget>(dependency.Target ?? "None"),
                     VersionRange.Parse(dependency.Version)));
+            }
+        }
+
+        return result;
+    }
+
+    private static IEnumerable<DownloadDependency> ParseDownloadDependencies(List<JsonModel.Project.Framework.DownloadDependency>? downloadDependencies)
+    {
+        var result = new List<DownloadDependency>();
+        if (downloadDependencies != null)
+        {
+            foreach (var downloadDependency in downloadDependencies)
+            {
+                if (string.IsNullOrWhiteSpace(downloadDependency.Name))
+                {
+                    throw new InvalidOperationException("Encountered download dependency with empty package name");
+                }
+
+                result.Add(new DownloadDependency(
+                    downloadDependency.Name,
+                    VersionRange.Parse(downloadDependency.Version)));
             }
         }
 
