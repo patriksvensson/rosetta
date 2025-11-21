@@ -1,18 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NuGet.Versioning" Version="6.2.1" />
-    <PackageReference Include="Spectre.IO" Version="0.8.0" />
+    <PackageReference Include="Newtonsoft.Json"/>
+    <PackageReference Include="NuGet.Versioning"/>
+    <PackageReference Include="Spectre.IO"/>
   </ItemGroup>
 
 </Project>

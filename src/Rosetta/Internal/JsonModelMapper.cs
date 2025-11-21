@@ -145,7 +145,8 @@ internal static class JsonModelMapper
         return result;
     }
 
-    private static IEnumerable<FrameworkDependency> ParseFrameworkDependencies(Dictionary<string, JsonModel.Project.Framework.Dependency>? dependencies)
+    private static IEnumerable<FrameworkDependency> ParseFrameworkDependencies(
+        Dictionary<string, JsonModel.Project.Framework.Dependency>? dependencies)
     {
         var result = new List<FrameworkDependency>();
         if (dependencies != null)
@@ -155,7 +156,7 @@ internal static class JsonModelMapper
                 result.Add(new FrameworkDependency(
                     dependencyName,
                     Enum.Parse<FrameworkDependencyTarget>(dependency.Target ?? "None"),
-                    VersionRange.Parse(dependency.Version)));
+                    VersionRange.Parse(dependency.Version ?? "0.0.0")));
             }
         }
 
@@ -176,7 +177,8 @@ internal static class JsonModelMapper
 
                 result.Add(new DownloadDependency(
                     downloadDependency.Name,
-                    VersionRange.Parse(downloadDependency.Version)));
+                    VersionRange.Parse(
+                        downloadDependency.Version ?? "0.0.0")));
             }
         }
 
